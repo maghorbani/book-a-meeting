@@ -466,12 +466,32 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .flex {
   display: flex;
 }
 
+.w-1\/3 {
+  width: 33.333333%;
+}
+
+.w-full {
+  width: 100%;
+}
+
 .flex-col {
   flex-direction: column;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -480,4 +500,31 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
