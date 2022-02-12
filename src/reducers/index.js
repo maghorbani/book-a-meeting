@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import sampleReducer from "./sampleReducer";
+import emailReducer from "./emailReducer";
 
 export default combineReducers({
-    posts: sampleReducer,
+    email: emailReducer,
 });

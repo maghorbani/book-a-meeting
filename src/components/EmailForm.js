@@ -1,45 +1,35 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { TextField } from "@mui/material";
+import validator from "validator";
 
-class EmailForm extends React.Component {
-    state = {
-        email: "",
-    };
+function EmailForm(props) {
+    const [email, setEmail] = React.useState("");
+    const [isValid, setIsValid] = React.useState(false);
 
-    handleChange = (event) => {
+    const handleChange = (event) => {
+        // console.log(parentIsValid);
         const email = event.target.value;
-        this.setState({ email });
+        const emailValie = validator.isEmail(email);
+        setIsValid(emailValie);
+        setEmail(email);
+        props.parrentSetIsValid(emailValie);
     };
 
-    handleSubmit = () => {
-        // your submit logic
-    };
-
-    render() {
-        const { email } = this.state;
-        return (
-            <ValidatorForm
-                ref="form"
-                onSubmit={this.handleSubmit}
-                onError={(errors) => console.log(errors)}
-                className="w-full"
-            >
-                <TextValidator
-                    fullWidth
-                    label="Email"
-                    onChange={this.handleChange}
-                    name="email"
-                    value={email}
-                    validators={["required", "isEmail"]}
-                    errorMessages={[
-                        "this field is required",
-                        "email is not valid",
-                    ]}
-                />
-            </ValidatorForm>
-        );
-    }
+    const TextFieldError = !(isValid || email === "");
+    return (
+        <TextField
+            error={TextFieldError}
+            helperText={
+                !(isValid || email === "") ? "Email is Not Valid" : null
+            }
+            fullWidth
+            label="Email"
+            onChange={handleChange}
+            name="email"
+            value={email}
+        />
+    );
 }
 
 export default EmailForm;
