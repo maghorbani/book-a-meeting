@@ -7,7 +7,7 @@ import store from "./store";
 function App() {
     return (
         <Provider store={store}>
-            <div className="App flex flex-col justify-center items-center bg-gray-50">
+            <div className="App flex flex-col justify-center items-center bg-gray-100">
                 <RootComponent />
             </div>
         </Provider>
