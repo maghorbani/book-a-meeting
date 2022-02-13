@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Book a meeting
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This web application is built with React.js and Express.js. The Express back-end is simply a static server for the React.js front-end and *more importantly* a single route to manage connections with some third party applications; It's essential not to doing this calls to third party application in the front-end, because any interaction with a third party, needs an API-KEY and can be leaked through  inspecting the front-end, by anyone.
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+using git you can clone a copy of source code in your machine/server:
 
-### `npm start`
+```bash
+git clone https://github.com/maghorbani/book-a-meeting
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+using [npm](https://github.com/npm/npm) or [yarn](https://github.com/yarnpkg/yarn) you can collect the dependencies 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+cd book-a-meeting
 
-### `npm test`
+#npm
+npm i
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#yarn
+yarn install
+```
 
-### `npm run build`
+  #### Building front-end
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The first step would be generating the CSS file of used components from [tailwindcss](https://github.com/tailwindlabs/tailwindcss) 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run build_css
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Now you can prepare a production build of front-end
 
-### `npm run eject`
+```bash
+npm build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+running the command above, a directory `build` will be shown up under project root directory that contains the optimum production build
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Running server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+simply running node can serve a local server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+node server.js
+```
 
-## Learn More
+in case of production uses, there might be various solutions, [pm2](https://github.com/Unitech/pm2) is a good choice.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+sudo npm i -g pm2
+pm2 start server.js
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Running for Development
 
-### Code Splitting
+Development server for back-end
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+sudo npm i -g nodemon
+nodemon server.js
+```
 
-### Analyzing the Bundle Size
+and for front-end
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm start
+```
 
-### Making a Progressive Web App
+**note** to set a base URL  (like `http://localhost:9000`) to the back-end, in the `.env` file so the front-end know where to send the web requests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+There might be other solutions with [webpack](https://github.com/webpack/webpack) that can make this step easier.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

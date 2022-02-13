@@ -480,14 +480,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
-.w-8\/12 {
-  width: 66.666667%;
-}
-
-.w-full {
-  width: 100%;
-}
-
 .flex-col {
   flex-direction: column;
 }
@@ -500,9 +492,25 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: center;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
 @tailwind aspect-ratio;
+
+@media (min-width: 640px) {
+  .sm\:w-11\/12 {
+    width: 91.666667%;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:w-8\/12 {
+    width: 66.666667%;
+  }
+}
