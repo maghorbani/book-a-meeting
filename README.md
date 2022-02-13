@@ -52,6 +52,8 @@ cp .env.sample .env
 
 and you can change the variables based on your setup
 
+you will also need a `.json` file that contains credentials for GoogleAPI and google api consule will generate this file. please leave a copy of this file in `.config` directory
+
 using [npm](https://github.com/npm/npm) or [yarn](https://github.com/yarnpkg/yarn) you can collect the dependencies 
 
 ```bash
