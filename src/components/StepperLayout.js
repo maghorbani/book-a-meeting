@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import EmailForm from "./EmailForm";
+import { VideoAndDelay } from "./VideoAndDelay";
 
 const steps = [
     {
@@ -33,38 +34,45 @@ const steps = [
 
 export default function StepperLayout() {
     const [activeStep, setActiveStep] = React.useState(0);
-    const [emailIsValid, setEmailIsValid] = React.useState(false);
+    const [enableContinue, setenableContinue] = React.useState(false);
 
-    const validateEmailWrapper = (isvalid) => {
-        setEmailIsValid(isvalid);
+    const enableContinueWrapper = (isvalid) => {
+        setenableContinue(isvalid);
     };
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setenableContinue(false);
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setenableContinue(false);
     };
 
     const handleReset = () => {
         setActiveStep(0);
+        setenableContinue(false);
     };
 
     return (
-        <Box sx={{ maxWidth: 400 }}>
-            <Stepper activeStep={activeStep} orientation="vertical">
+        <Box className="md:w-8/12 sm:w-11/12">
+            <Stepper
+                activeStep={activeStep}
+                orientation="vertical"
+                className="md:w-8/12 sm:w-11/12"
+            >
                 <Step>
-                    <StepLabel>Enter Email</StepLabel>
+                    <StepLabel>Enter your email</StepLabel>
                     <StepContent>
                         <Typography sx={{ mb: 2 }}>
                             Please enter your email, so we can reach you latter
                         </Typography>
-                        <EmailForm parrentSetIsValid={validateEmailWrapper} />
+                        <EmailForm parrentSetIsValid={enableContinueWrapper} />
                         <Box sx={{ my: 2 }}>
                             <div>
                                 <Button
-                                    disabled={!emailIsValid}
+                                    disabled={!enableContinue}
                                     variant="contained"
                                     onClick={handleNext}
                                     sx={{ mt: 1, mr: 1 }}
@@ -83,22 +91,58 @@ export default function StepperLayout() {
                     </StepContent>
                 </Step>
                 <Step>
+                    <StepLabel>Just a moment...</StepLabel>
+                    <StepContent>
+                        <Typography sx={{ mb: 2 }}>
+                            Take some time listening to one of the best
+                            performances of Sibelius' violin concerto, by Maxim
+                            Vengerov
+                        </Typography>
+                        <VideoAndDelay
+                            parrentCanGoNextStep={enableContinueWrapper}
+                            delay={2 * 60}
+                        />
+                        <Box sx={{ mb: 2 }}>
+                            <div>
+                                <Button
+                                    disabled={!enableContinue}
+                                    variant="contained"
+                                    onClick={handleNext}
+                                    sx={{ mt: 1, mr: 1 }}
+                                >
+                                    Finish
+                                </Button>
+                                <Button
+                                    onClick={handleBack}
+                                    sx={{ mt: 1, mr: 1 }}
+                                >
+                                    Back
+                                </Button>
+                            </div>
+                        </Box>
+                    </StepContent>
+                </Step>
+                <Step>
                     <StepLabel
                         optional={
                             <Typography variant="caption">Last step</Typography>
                         }
                     >
-                        "Create an ad group"
+                        Schedule your meeting
                     </StepLabel>
                     <StepContent>
                         <Typography>
-                            "An ad group contains one or more ads which target a
-                            shared set of keywords."
+                            Please Select a time slot and we will send you
+                            meeting detail
                         </Typography>
-
+                        <VideoAndDelay
+                            parrentCanGoNextStep={enableContinueWrapper}
+                            delay={2 * 60}
+                        />
                         <Box sx={{ mb: 2 }}>
                             <div>
                                 <Button
+                                    disabled={!enableContinue}
                                     variant="contained"
                                     onClick={handleNext}
                                     sx={{ mt: 1, mr: 1 }}

@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import validator from "validator";
 
-function EmailForm(props) {
+const EmailForm = (props) => {
     const [email, setEmail] = React.useState("");
     const [isValid, setIsValid] = React.useState(false);
 
@@ -30,6 +30,6 @@ function EmailForm(props) {
             value={email}
         />
     );
-}
+};
 
 export default EmailForm;
