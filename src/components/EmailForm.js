@@ -1,19 +1,23 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import { setEmail } from "../actions/emailActions";
 import { TextField } from "@mui/material";
 import validator from "validator";
+import { useDispatch } from "react-redux";
 
-const EmailForm = (props) => {
-    const [email, setEmail] = React.useState("");
+export const EmailForm = (props) => {
+    const [email, setStateEmail] = React.useState("");
     const [isValid, setIsValid] = React.useState(false);
 
+    const dispatch = useDispatch();
     const handleChange = (event) => {
-        // console.log(parentIsValid);
         const email = event.target.value;
-        const emailValie = validator.isEmail(email);
-        setIsValid(emailValie);
-        setEmail(email);
-        props.parrentSetIsValid(emailValie);
+        const emailIsValid = validator.isEmail(email);
+        setIsValid(emailIsValid);
+        setStateEmail(email);
+        props.parrentSetIsValid(emailIsValid);
+        if (emailIsValid) {
+            dispatch(setEmail(email));
+        }
     };
 
     const TextFieldError = !(isValid || email === "");

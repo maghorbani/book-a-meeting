@@ -10,7 +10,6 @@ export const VideoAndDelay = (props) => {
         const timer =
             timeLeft >= 0
                 ? setTimeout(() => {
-                      console.log(timeLeft);
                       setProgress(100 - (timeLeft / props.delay) * 100);
                       if (timeLeft > 0) setTimeLeft(timeLeft - 1);
                       else props.parrentCanGoNextStep(true);

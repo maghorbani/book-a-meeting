@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import EmailForm from "./EmailForm";
 import { VideoAndDelay } from "./VideoAndDelay";
+import { DatePicker } from "./DatePicker";
 
 const steps = [
     {
@@ -105,12 +106,12 @@ export default function StepperLayout() {
                         <Box sx={{ mb: 2 }}>
                             <div>
                                 <Button
-                                    disabled={!enableContinue}
+                                    // disabled={!enableContinue}
                                     variant="contained"
                                     onClick={handleNext}
                                     sx={{ mt: 1, mr: 1 }}
                                 >
-                                    Finish
+                                    Continue
                                 </Button>
                                 <Button
                                     onClick={handleBack}
@@ -131,18 +132,15 @@ export default function StepperLayout() {
                         Schedule your meeting
                     </StepLabel>
                     <StepContent>
-                        <Typography>
+                        <Typography sx={{ mb: 2 }}>
                             Please Select a time slot and we will send you
                             meeting detail
                         </Typography>
-                        <VideoAndDelay
-                            parrentCanGoNextStep={enableContinueWrapper}
-                            delay={2 * 60}
-                        />
-                        <Box sx={{ mb: 2 }}>
+                        <DatePicker />
+                        <Box sx={{ my: 2 }}>
                             <div>
                                 <Button
-                                    disabled={!enableContinue}
+                                    // disabled={!enableContinue}
                                     variant="contained"
                                     onClick={handleNext}
                                     sx={{ mt: 1, mr: 1 }}
