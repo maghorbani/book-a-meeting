@@ -91,21 +91,5 @@ router.post("/sendEmail", async function (req, res, next) {
         res.json("");
     }
 });
-/* GET home page. */
-router.get("/sheet", async function (req, res, next) {
-    try {
-        const creds = require("../" + process.env.GOOGLE_CRED_FILE);
-        const doc = new GoogleSpreadsheet(
-            "1mUWQ3zWHDbOHrV308sheHdU6T__S_mpGvUzdvDpKeC8"
-        );
-
-        await doc.useServiceAccountAuth(creds);
-
-        await doc.loadInfo();
-        console.log(doc.title);
-    } catch (err) {
-        console.error(err);
-    }
-});
 
 module.exports = router;
