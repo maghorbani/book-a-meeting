@@ -10,7 +10,7 @@ export const setEmail = (email) => (dispatch) => {
 
 export const sendEmail = (email) => (dispatch) => {
     axios
-        .post(`${process.env.REACT_APP_BACK_END_URL}/api/sendEmail`, {
+        .post(`${process.env.REACT_APP_BACK_END_URL || ""}/api/sendEmail`, {
             email: email,
         })
         .then((res) => {})
