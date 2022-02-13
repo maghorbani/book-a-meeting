@@ -10,32 +10,48 @@ import Typography from "@mui/material/Typography";
 import EmailForm from "./EmailForm";
 import { VideoAndDelay } from "./VideoAndDelay";
 import { DatePicker } from "./DatePicker";
+import { connect } from "react-redux";
+import axios from "axios";
 
-const steps = [
-    {
-        label: "Enter Email",
-        description: `Please enter your email, so we can reach you latter`,
-        component: <EmailForm />,
-    },
-    {
-        label: "Create an ad group",
-        description:
-            "An ad group contains one or more ads which target a shared set of keywords.",
-        component: "",
-    },
-    {
-        label: "Create an ad",
-        description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`,
-        component: "",
-    },
-];
-
-export default function StepperLayout() {
+const StepperLayout = (props) => {
     const [activeStep, setActiveStep] = React.useState(0);
     const [enableContinue, setenableContinue] = React.useState(false);
+
+    const createContact = () => {
+        const data = {
+            contact: {
+                email: props.email,
+            },
+        };
+        axios
+            .post(process.env.REACT_APP_CAMPAIGN_URL, data, {
+                headers: {
+                    "api-token": REACT_APP_CAMPAIGN_API_TOKEN,
+                },
+            })
+            .then((resp) => console.log(resp))
+            .catch((e) => console.log(e));
+    };
+    const emailIsBooked = () => {
+        const email = props.email;
+        axios
+            .get("https://api.oncehub.com/v2/bookings", {
+                headers: {
+                    "API-Key": process.env.REACT_APP_ONCEHUB_API_KEY,
+                },
+            })
+            .then((resp) => {
+                const emails = resp.data.data.map(function (element) {
+                    return element["form_submission"]["email"];
+                });
+                if (emails.includes(props.email)) {
+                    createContact();
+                } else {
+                    console.log("not booked");
+                }
+            })
+            .catch((e) => console.error(e));
+    };
 
     const enableContinueWrapper = (isvalid) => {
         setenableContinue(isvalid);
@@ -142,7 +158,10 @@ export default function StepperLayout() {
                                 <Button
                                     // disabled={!enableContinue}
                                     variant="contained"
-                                    onClick={handleNext}
+                                    onClick={() => {
+                                        handleNext();
+                                        emailIsBooked();
+                                    }}
                                     sx={{ mt: 1, mr: 1 }}
                                 >
                                     Finish
@@ -158,7 +177,7 @@ export default function StepperLayout() {
                     </StepContent>
                 </Step>
             </Stepper>
-            {activeStep === steps.length && (
+            {activeStep === 3 && (
                 <Paper square elevation={0} sx={{ p: 3 }}>
                     <Typography>
                         All steps completed - you&apos;re finished
@@ -170,4 +189,10 @@ export default function StepperLayout() {
             )}
         </Box>
     );
-}
+};
+
+const mapStateToProps = (state) => ({
+    email: state.email.email,
+});
+
+export default connect(mapStateToProps)(StepperLayout);
