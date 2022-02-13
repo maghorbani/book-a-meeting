@@ -44,6 +44,14 @@ using git you can clone a copy of source code in your machine/server:
 git clone https://github.com/maghorbani/book-a-meeting
 ```
 
+before any step, a `.env` file with the structure defined in `.env.sample` should be created 
+
+```bash
+cp .env.sample .env
+```
+
+and you can change the variables based on your setup
+
 using [npm](https://github.com/npm/npm) or [yarn](https://github.com/yarnpkg/yarn) you can collect the dependencies 
 
 ```bash
