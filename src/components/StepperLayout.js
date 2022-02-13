@@ -41,11 +41,7 @@ const StepperLayout = (props) => {
 
     return (
         <Box className="md:w-8/12 sm:w-11/12">
-            <Stepper
-                activeStep={activeStep}
-                orientation="vertical"
-                className="md:w-8/12 sm:w-11/12"
-            >
+            <Stepper activeStep={activeStep} orientation="vertical">
                 <Step>
                     <StepLabel>Enter your email</StepLabel>
                     <StepContent>
