@@ -25,27 +25,17 @@ router.post("/sendEmail", async function (req, res, next) {
         await doc.loadInfo();
 
         const sheet = await doc.sheetsByIndex[0];
-        // const rows = await sheet.getRows();
-
+        const rows = await sheet.getRows();
+        const sheetEmails = rows.map(function (element) {
+            return element.email;
+        });
         const emails = oncehub_resp.data.data.map(function (element) {
             return element["form_submission"]["email"];
         });
 
-        let crate_contact = await axios.post(
-            process.env.CAMPAIGN_URL + "contacts",
-            {
-                contact: { email: email },
-            },
-            {
-                headers: {
-                    "api-token": process.env.CAMPAIGN_API_TOKEN,
-                },
-            }
-        );
-        const id = crate_contact.data.contact.id;
         const data = {
             contactAutomation: {
-                contact: id,
+                contact: "0",
                 automation: "2",
             },
         };
@@ -72,11 +62,42 @@ router.post("/sendEmail", async function (req, res, next) {
             sheetRow.note = rowData.form_submission.note;
             sheetRow.company = rowData.form_submission.company;
             sheetRow.note = rowData.form_submission.note;
-            sheetRow["sjoin url"] = rowData.virtual_conferencing.join_url;
-            sheetRow["start time"] = rowData.starting_time;
+            sheetRow["join url"] = rowData.virtual_conferencing.join_url;
+            const d = new Date(rowData.starting_time);
+            sheetRow["start time"] = d.toUTCString();
             sheetRow["duration(minutes)"] = rowData.duration_minutes;
         }
-        await sheet.addRow(sheetRow);
+        if (sheetEmails.includes(email)) {
+            const rowInd = sheetEmails.indexOf(email);
+            rows[rowInd].name = sheetRow.name;
+            rows[rowInd].email = sheetRow.email;
+            rows[rowInd].phone = sheetRow.phone;
+            rows[rowInd]["mobile phone"] = sheetRow["mobile phone"];
+            rows[rowInd].note = sheetRow.note;
+            rows[rowInd].company = sheetRow.company;
+            rows[rowInd].note = sheetRow.note;
+            rows[rowInd]["join url"] = sheetRow["sjoin url"];
+
+            rows[rowInd]["start time"] = sheetRow["start time"];
+            rows[rowInd]["duration(minutes)"] = sheetRow["duration(minutes)"];
+            await rows[rowInd].save();
+        } else {
+            await sheet.addRow(sheetRow);
+        }
+        let crate_contact = await axios.post(
+            process.env.CAMPAIGN_URL + "contacts",
+            {
+                contact: { email: email },
+            },
+            {
+                headers: {
+                    "api-token": process.env.CAMPAIGN_API_TOKEN,
+                },
+            }
+        );
+        const id = crate_contact.data.contact.id;
+        data.contactAutomation.contact = id;
+
         let add_to_automation = await axios.post(
             process.env.CAMPAIGN_URL + "contactAutomations",
             data,
