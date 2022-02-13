@@ -89,7 +89,7 @@ const StepperLayout = (props) => {
                         <Box sx={{ mb: 2 }}>
                             <div>
                                 <Button
-                                    // disabled={!enableContinue}
+                                    disabled={!enableContinue}
                                     variant="contained"
                                     onClick={handleNext}
                                     sx={{ mt: 1, mr: 1 }}
