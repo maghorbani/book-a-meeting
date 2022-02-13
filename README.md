@@ -30,6 +30,12 @@ After user clicks the Finish button, a request containing the email address will
 
 And the front-end ignores the response as it's not a concern for the front-end
 
+#### back-end system
+
+Since [ActiveCampaign](https://www.activecampaign.com/) supports scheduling emails, there is no database or a convenient message broker data structure to schedule sending emails. Two automations for Email #1 and Email #2 is created in ActiveCompaign and the back-end will allocate contacts to that based on if the visitor booked a meeting or not.
+
+Then the information of user will be added to a new Row in a google sheet ([Link](https://docs.google.com/spreadsheets/d/1mUWQ3zWHDbOHrV308sheHdU6T__S_mpGvUzdvDpKeC8))
+
 ## Preparing and Starting the app
 
 using git you can clone a copy of source code in your machine/server:

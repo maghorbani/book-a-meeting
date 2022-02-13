@@ -14,6 +14,7 @@ router.post("/sendEmail", async function (req, res, next) {
                 },
             }
         );
+
         const creds = require("../.config/" + process.env.GOOGLE_CRED_FILE);
         const doc = new GoogleSpreadsheet(
             "1mUWQ3zWHDbOHrV308sheHdU6T__S_mpGvUzdvDpKeC8"
@@ -71,6 +72,7 @@ router.post("/sendEmail", async function (req, res, next) {
             sheetRow.note = rowData.form_submission.note;
             sheetRow.company = rowData.form_submission.company;
             sheetRow.note = rowData.form_submission.note;
+            sheetRow["sjoin url"] = rowData.virtual_conferencing.join_url;
             sheetRow["start time"] = rowData.starting_time;
             sheetRow["duration(minutes)"] = rowData.duration_minutes;
         }
