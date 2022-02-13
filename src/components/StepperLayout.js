@@ -12,46 +12,13 @@ import { VideoAndDelay } from "./VideoAndDelay";
 import { DatePicker } from "./DatePicker";
 import { connect } from "react-redux";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { sendEmail } from "../actions/emailActions";
 
 const StepperLayout = (props) => {
     const [activeStep, setActiveStep] = React.useState(0);
     const [enableContinue, setenableContinue] = React.useState(false);
-
-    const createContact = () => {
-        const data = {
-            contact: {
-                email: props.email,
-            },
-        };
-        axios
-            .post(process.env.REACT_APP_CAMPAIGN_URL, data, {
-                headers: {
-                    "api-token": REACT_APP_CAMPAIGN_API_TOKEN,
-                },
-            })
-            .then((resp) => console.log(resp))
-            .catch((e) => console.log(e));
-    };
-    const emailIsBooked = () => {
-        const email = props.email;
-        axios
-            .get("https://api.oncehub.com/v2/bookings", {
-                headers: {
-                    "API-Key": process.env.REACT_APP_ONCEHUB_API_KEY,
-                },
-            })
-            .then((resp) => {
-                const emails = resp.data.data.map(function (element) {
-                    return element["form_submission"]["email"];
-                });
-                if (emails.includes(props.email)) {
-                    createContact();
-                } else {
-                    console.log("not booked");
-                }
-            })
-            .catch((e) => console.error(e));
-    };
+    const dispatch = useDispatch();
 
     const enableContinueWrapper = (isvalid) => {
         setenableContinue(isvalid);
@@ -160,7 +127,7 @@ const StepperLayout = (props) => {
                                     variant="contained"
                                     onClick={() => {
                                         handleNext();
-                                        emailIsBooked();
+                                        dispatch(sendEmail(props.email));
                                     }}
                                     sx={{ mt: 1, mr: 1 }}
                                 >
