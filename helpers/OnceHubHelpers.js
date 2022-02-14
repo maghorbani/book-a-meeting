@@ -1,5 +1,5 @@
 const { buildErrObject, handleAxiosError } = require("../routers/middleware");
-const axios = require("axios");
+const { axios } = require("axios");
 
 const fetchAllMeetings = () => {
     return new Promise((resolve, reject) => {
