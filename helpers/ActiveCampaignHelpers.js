@@ -11,7 +11,7 @@ const createNewContact = (email) => {
                 },
                 {
                     headers: {
-                        "API-Key": process.env.ONCEHUB_API_KEY,
+                        "API-Token": process.env.CAMPAIGN_API_TOKEN,
                     },
                 }
             )
@@ -25,7 +25,7 @@ const createNewContact = (email) => {
     });
 };
 
-const addContactToAutomation = (contactId) => {
+const addContactToAutomation = (contactId, booked) => {
     return new Promise((resolve, reject) => {
         const data = {
             contactAutomation: {
@@ -33,13 +33,13 @@ const addContactToAutomation = (contactId) => {
                 automation: "2",
             },
         };
-        if (emails.includes(email)) {
+        if (booked) {
             data.contactAutomation.automation = "1";
         }
         axios
             .post(process.env.CAMPAIGN_URL + "contactAutomations", data, {
                 headers: {
-                    "API-Key": process.env.ONCEHUB_API_KEY,
+                    "API-Token": process.env.CAMPAIGN_API_TOKEN,
                 },
             })
             .then((res) => res.data)

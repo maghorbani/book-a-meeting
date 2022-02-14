@@ -14,7 +14,7 @@ const SendEmail = async (req, res) => {
         });
         await updateGoogleSheet(email, meetings, emails);
         const contact = await createNewContact(email);
-        await addContactToAutomation(contact.id);
+        await addContactToAutomation(contact.id, emails.includes(email));
         res.status(201).json({
             message: "new contact added to automated email",
         });
