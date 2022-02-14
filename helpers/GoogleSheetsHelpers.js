@@ -49,7 +49,7 @@ const updateGoogleSheet = (email, allMeetings, allEmails) => {
                 rows[rowInd].note = sheetRow.note;
                 rows[rowInd].company = sheetRow.company;
                 rows[rowInd].note = sheetRow.note;
-                rows[rowInd]["join url"] = sheetRow["sjoin url"];
+                rows[rowInd]["join url"] = sheetRow["join url"];
                 rows[rowInd]["start time"] = sheetRow["start time"];
                 rows[rowInd]["duration(minutes)"] =
                     sheetRow["duration(minutes)"];
