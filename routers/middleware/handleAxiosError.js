@@ -10,7 +10,7 @@ const handleAxiosError = (errorObj) => {
             console.log(errorObj.request);
         }
     }
-    buildErrObject(400, errorObj.message);
+    return buildErrObject(400, errorObj.message);
 };
 
 module.exports = { handleAxiosError };
